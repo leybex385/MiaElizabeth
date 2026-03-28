@@ -6,6 +6,19 @@
     <title>Westorin Partners - Distributed Investment Excellence</title>
     <meta name="description" content="A specialized distributed investment model combining individual limited partner autonomy with institutional-grade intelligence across medical devices, new energy, real estate, hospitality, digital assets, and gold." />
     
+    <!-- Social Preview (Telegram, WhatsApp, etc.) -->
+    <meta property="og:title" content="Westorin Partners - Distributed Investment Excellence" />
+    <meta property="og:description" content="Strategic capital deployment through elite institutional intelligence and distributive partner autonomy." />
+    <meta property="og:image" content="1774740687.png" />
+    <meta property="og:url" content="https://westorin.partners" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter & Large Preview Platforms -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Westorin Partners" />
+    <meta name="twitter:description" content="Distributed Investment Excellence // Operational Model V1.0" />
+    <meta name="twitter:image" content="1774740687.png" />
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +29,8 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
+    <link rel="icon" type="image/png" href="favicon.png" />
+    
     <script>
       tailwind.config = {
         theme: {
@@ -113,38 +127,90 @@
       .animate-hero-4 { animation: heroFadeUp 1s ease-out 0.6s forwards, softFloat 8s ease-in-out 1.6s infinite, amberPulse 4s infinite ease-in-out; }
       .animate-hero-5 { animation: heroFadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards; }
       .animate-badge-pulse { animation: badgeGlow 4s infinite ease-in-out; }
+      
+      /* Sliding Nav Indicator */
+      #nav-indicator {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 38px;
+        background: radial-gradient(circle at center, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+        border: 1px solid rgba(245, 158, 11, 0.4);
+        border-radius: 9999px;
+        transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        z-index: 0;
+        pointer-events: none;
+        backdrop-blur: 10px;
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+      }
+      .nav-link.active {
+        color: white;
+        font-weight: 500;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
     </style>
     <style>
-      @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-      .modal-animate { animation: modalFadeIn 0.3s ease-out; }
+      @keyframes modalZoomIn { 
+        from { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px); } 
+        to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } 
+      }
+      @keyframes scanningLine {
+        0% { transform: translateY(-100%); opacity: 0; }
+        50% { opacity: 0.5; }
+        100% { transform: translateY(500%); opacity: 0; }
+      }
+      .modal-animate { animation: modalZoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
       #overview-modal.hidden { display: none; }
       #overview-modal:not(.hidden) { display: flex; }
+      
+      .verified-badge {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #10b981;
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .verified-dot {
+        width: 4px;
+        height: 4px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+        animation: pulse 2s infinite;
+      }
+      .modal-bg-image {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.15) contrast(1.2) blur(20px);
+        transform: scale(1.1);
+        z-index: -1;
+      }
     </style>
   </head>
   <body class="bg-black text-white overflow-x-hidden">
 
-    <!-- NAVIGATION -->
-    <nav id="bottom-nav" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 scale-95 opacity-0 pointer-events-none">
-      <div class="backdrop-blur-2xl bg-zinc-900/40 border border-amber-500/20 rounded-full px-8 py-4 shadow-2xl shadow-amber-500/10">
-        <div class="flex items-center gap-8">
-          <a href="#overview" class="text-sm font-light tracking-wider text-zinc-300 hover:text-amber-400 transition-colors duration-300 relative group">
-            Overview<span class="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#sectors" class="text-sm font-light tracking-wider text-zinc-300 hover:text-amber-400 transition-colors duration-300 relative group">
-            Sectors<span class="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#leadership" class="text-sm font-light tracking-wider text-zinc-300 hover:text-amber-400 transition-colors duration-300 relative group">
-            Leadership<span class="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#doctrine" class="text-sm font-light tracking-wider text-zinc-300 hover:text-amber-400 transition-colors duration-300 relative group">
-            Doctrine<span class="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#global" class="text-sm font-light tracking-wider text-zinc-300 hover:text-amber-400 transition-colors duration-300 relative group">
-            Global<span class="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#contact" class="text-sm font-light tracking-wider text-zinc-300 hover:text-amber-400 transition-colors duration-300 relative group">
-            Contact<span class="absolute -bottom-1 left-0 w-0 h-px bg-amber-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
+    <!-- NAVIGATION: INSTITUTIONAL SILHOUETTE -->
+    <nav id="bottom-nav" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 scale-95 opacity-0 pointer-events-none">
+      <div class="backdrop-blur-3xl bg-zinc-900/60 border border-white/10 rounded-full px-2 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-amber-500/10 relative">
+        <!-- The Sliding Highlight -->
+        <div id="nav-indicator"></div>
+        
+        <div class="flex items-center px-2 relative z-10">
+          <a href="#overview" class="nav-link px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-zinc-500 hover:text-white transition-all duration-300">Overview</a>
+          <a href="#sectors" class="nav-link px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-zinc-500 hover:text-white transition-all duration-300">Sectors</a>
+          <a href="#leadership" class="nav-link px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-zinc-500 hover:text-white transition-all duration-300">Leadership</a>
+          <a href="#doctrine" class="nav-link px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-zinc-500 hover:text-white transition-all duration-300">Doctrine</a>
+          <a href="#global" class="nav-link px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-zinc-500 hover:text-white transition-all duration-300">Global</a>
+          <a href="#contact" class="nav-link px-6 py-2.5 text-[11px] uppercase tracking-[0.25em] text-zinc-500 hover:text-white transition-all duration-300">Contact</a>
         </div>
       </div>
     </nav>
@@ -222,7 +288,7 @@
 
     <!-- HERO SECTION -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div class="absolute inset-0 z-0" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; filter: brightness(0.25);"></div>
+      <div class="absolute inset-0 z-0" style="background-image: url('1774740406.png'); background-size: cover; background-position: center; filter: brightness(0.35) contrast(1.1);"></div>
       <div class="absolute inset-0 bg-gradient-to-br from-black via-zinc-900/50 to-amber-900/20 z-10"></div>
       
       <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-8 py-32 grid md:grid-cols-12 gap-8 items-center">
@@ -1544,9 +1610,12 @@
     
     <!-- OVERVIEW DETAIL MODAL -->
     <div id="overview-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
-      <div class="absolute inset-0 bg-black/80 backdrop-blur-xl" onclick="closeOverviewModal()"></div>
-      <div class="relative w-full max-w-2xl backdrop-blur-3xl bg-zinc-900/90 border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)] border-amber-500/20 modal-animate">
-        <button onclick="closeOverviewModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-amber-400 p-2 transition-colors">
+      <div class="absolute inset-0 bg-black/85 backdrop-blur-2xl" onclick="closeOverviewModal()"></div>
+      <div id="modal-card" class="relative w-full max-w-2xl overflow-hidden backdrop-blur-3xl bg-zinc-900/60 border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] border-amber-500/10 modal-animate">
+        <div id="modal-bg-layer" class="modal-bg-image"></div>
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" style="animation: scanningLine 4s infinite linear;"></div>
+        
+        <button onclick="closeOverviewModal()" class="absolute top-8 right-8 text-zinc-500 hover:text-amber-400 p-2 transition-all duration-300 z-50">
           <i data-lucide="x" class="w-6 h-6"></i>
         </button>
         <div id="modal-content-container">
@@ -1624,6 +1693,7 @@
         'partners': {
           tag: 'AUTONOMY & EXPERTISE',
           title: 'Individual Limited Partners',
+          image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop',
           desc: 'Our model empowers partners to act as autonomous decision-makers, leveraging deep sector knowledge without the bureaucracy of traditional firms.',
           points: [
             'Direct capital commitment authority',
@@ -1635,6 +1705,7 @@
         'intelligence': {
           tag: 'ANALYTICAL RIGOR',
           title: 'Elite Intelligence Unit',
+          image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
           desc: 'A specialized team of 25 analysts providing the quantitative foundation for all partner decisions, ensuring institutional-grade underwriting.',
           points: [
             'Comprehensive risk modeling',
@@ -1646,6 +1717,7 @@
         'track-record': {
           tag: 'HISTORICAL EXCELLENCE',
           title: 'Proven Track Record',
+          image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
           desc: 'Decades of consistent value creation across multiple market cycles, defined by a disciplined approach and calculated risk management.',
           points: [
             '7 high-performance target sectors',
@@ -1660,17 +1732,36 @@
         const data = modalData[type];
         if (!data) return;
 
+        // Reset animation by cloning or re-applying
+        const modalContent = document.getElementById('modal-card');
+        modalContent.classList.remove('modal-animate');
+        void modalContent.offsetWidth; // Force reflow
+        modalContent.classList.add('modal-animate');
+
+        document.getElementById('modal-bg-layer').style.backgroundImage = `url('${data.image}')`;
+
         modalContainer.innerHTML = `
-          <div class="text-amber-400 text-[10px] tracking-[0.3em] uppercase mb-4 font-semibold">${data.tag}</div>
-          <h2 class="font-serif text-4xl text-white mb-6 leading-tight">${data.title}</h2>
-          <p class="text-zinc-400 text-lg font-light leading-relaxed mb-8">${data.desc}</p>
-          <div class="space-y-4">
-            ${data.points.map(point => `
-              <div class="flex items-start gap-4">
-                <div class="w-5 h-5 bg-amber-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <div class="w-1.5 h-1.5 bg-amber-500 rounded-full"></div>
+          <div class="flex flex-col gap-1 mb-8">
+            <div class="verified-badge opacity-0 translate-y-4 animate-[heroFadeUp_0.8s_ease-out_0.2s_forwards]">
+              <div class="verified-dot"></div>
+              SYSTEM STATUS: VERIFIED_ASSET
+            </div>
+            <div class="text-amber-400 text-[10px] tracking-[0.4em] uppercase font-bold mt-4 opacity-0 translate-y-4 animate-[heroFadeUp_0.8s_ease-out_0.3s_forwards]">${data.tag}</div>
+          </div>
+          
+          <h2 class="font-serif text-4xl md:text-5xl text-white mb-8 leading-tight opacity-0 translate-y-4 animate-[heroFadeUp_0.8s_ease-out_0.4s_forwards]">${data.title}</h2>
+          
+          <div class="w-12 h-[2px] bg-amber-500 mb-8 opacity-0 translate-y-4 animate-[heroFadeUp_0.8s_ease-out_0.5s_forwards]"></div>
+          
+          <p class="text-zinc-400 text-lg font-light leading-relaxed mb-10 opacity-0 translate-y-4 animate-[heroFadeUp_0.8s_ease-out_0.6s_forwards]">${data.desc}</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${data.points.map((point, i) => `
+              <div class="flex items-start gap-4 opacity-0 translate-y-4 animate-[heroFadeUp_0.8s_ease-out_${0.7 + (i * 0.1)}s_forwards]">
+                <div class="w-6 h-6 border border-amber-500/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-1 h-1 bg-amber-500 rounded-full"></div>
                 </div>
-                <span class="text-zinc-300 text-sm font-light">${point}</span>
+                <span class="text-zinc-300 text-sm font-medium tracking-wide uppercase text-[10px]">${point}</span>
               </div>
             `).join('')}
           </div>
@@ -1698,6 +1789,49 @@
       }, { threshold: 0.2 });
 
       document.querySelectorAll('.portfolio-header-animate, .portfolio-item-animate, .footer-animate, .overview-animate, .sectors-header-animate, .sectors-grid-animate, .leadership-animate').forEach(el => portfolioStatsObserver.observe(el));
+
+      // NAVIGATION SLIDING HIGHLIGHT LOGIC
+      const navLinks = document.querySelectorAll('.nav-link');
+      const navIndicator = document.getElementById('nav-indicator');
+      const sections = document.querySelectorAll('section[id]');
+
+      function updateNavIndicator(activeLink) {
+        if (!activeLink) return;
+        const rect = activeLink.getBoundingClientRect();
+        const parentRect = activeLink.parentElement.getBoundingClientRect();
+        
+        navIndicator.style.width = `${rect.width}px`;
+        navIndicator.style.left = `${activeLink.offsetLeft}px`;
+        
+        navLinks.forEach(link => link.classList.remove('active'));
+        activeLink.classList.add('active');
+      }
+
+      // Initialize highlight on scroll/load
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            const targetLink = document.querySelector(`.nav-link[href="#${id}"]`);
+            if (targetLink) updateNavIndicator(targetLink);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      sections.forEach(section => navObserver.observe(section));
+
+      // Manual click handling
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          updateNavIndicator(link);
+        });
+      });
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        const activeLink = document.querySelector('.nav-link.active');
+        if (activeLink) updateNavIndicator(activeLink);
+      });
     </script>
   </body>
 </html>
