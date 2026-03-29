@@ -503,43 +503,50 @@
               title: 'Medical Devices', 
               description: 'Investing in breakthrough technologies that improve patient outcomes and transform healthcare delivery.', 
               allocation: '18%', 
-              image: 'sector-medical.png' 
+              image: 'sector-medical.png',
+              video: '1.mp4'
             },
             { 
               title: 'New Energy', 
               description: 'Supporting the transition to sustainable energy through strategic investments in solar, wind, and battery technologies.', 
               allocation: '22%', 
-              image: 'sector-energy.png' 
+              image: 'sector-energy.png',
+              video: '2.mp4'
             },
             { 
               title: 'Real Estate', 
               description: 'Prime commercial and residential developments in high-growth metropolitan markets.', 
               allocation: '25%', 
-              image: 'sector-realestate.png' 
+              image: 'sector-realestate.png',
+              video: '3.mp4'
             },
             { 
               title: 'Hospitality', 
               description: 'Luxury hotels and resorts in strategic locations worldwide, focusing on exceptional guest experiences.', 
               allocation: '15%', 
-              image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop' 
+              image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop',
+              video: '4.mp4'
             },
             { 
               title: 'High-End Dining', 
               description: 'Curated portfolio of premium restaurants and culinary concepts led by award-winning chefs.', 
               allocation: '8%', 
-              image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop' 
+              image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop',
+              video: '5.mp4'
             },
             { 
               title: 'Digital Assets', 
               description: 'Strategic positions in cryptocurrency and blockchain infrastructure with rigorous risk management.', 
               allocation: '7%', 
-              image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2070&auto=format&fit=crop' 
+              image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2070&auto=format&fit=crop',
+              video: '6.mp4'
             },
             { 
               title: 'Gold & Precious Metals', 
               description: 'Physical and derivative positions in gold as a portfolio stabilizer and inflation hedge.', 
               allocation: '5%', 
-              image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=2070&auto=format&fit=crop' 
+              image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?q=80&w=2070&auto=format&fit=crop',
+              video: '7.mp4'
             }
           ];
         </script>
@@ -552,8 +559,11 @@
           <div class="lg:col-span-3">
             <div class="sticky top-8">
               <div class="backdrop-blur-2xl bg-zinc-900/60 border border-amber-500/20 rounded-2xl overflow-hidden shadow-2xl shadow-amber-500/10">
-                <div id="sector-image-container" class="h-80 bg-cover bg-center relative transition-all duration-500" style="background-image: url('sector-medical.png')">
-                  <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent"></div>
+                <div id="sector-image-container" class="h-80 relative overflow-hidden transition-all duration-700 bg-cover bg-center" style="background-image: url('sector-medical.png')">
+                  <!-- Video Background Overlay -->
+                  <video id="sector-video-display" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 z-10" loop muted playsinline></video>
+                  <!-- Gradient Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent z-20"></div>
                 </div>
                 <div class="p-8">
                   <div class="flex items-center gap-6 mb-4">
@@ -621,9 +631,25 @@
 
           const sector = sectorsData[index];
           const imgContainer = document.getElementById('sector-image-container');
+          const videoElement = document.getElementById('sector-video-display');
           const titleEl = document.getElementById('sector-display-title');
           const allocEl = document.getElementById('sector-display-allocation');
           const descEl = document.getElementById('sector-display-description');
+
+          // Smooth Video Transition
+          if(videoElement) {
+            videoElement.classList.remove('opacity-100');
+            videoElement.classList.add('opacity-0');
+            
+            setTimeout(() => {
+              videoElement.src = sector.video;
+              videoElement.onloadeddata = () => {
+                videoElement.play();
+                videoElement.classList.remove('opacity-0');
+                videoElement.classList.add('opacity-100');
+              };
+            }, 300);
+          }
 
           if(imgContainer) imgContainer.style.backgroundImage = `url("${sector.image}")`;
           if(titleEl) titleEl.textContent = sector.title;
